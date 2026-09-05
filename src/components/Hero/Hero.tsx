@@ -105,36 +105,35 @@ export default function Hero({ onProgress }: HeroProps) {
     }
 
     const ctx = gsap.context(() => {
-      // 1. Fade out the still video smoothly — but only start AFTER
-      //    the canvas has had time to render frame 0 underneath.
-      //    On desktop, delay the fade start so there's zero visible gap.
+      // 1. Crossfade the ambient video into the first sequence frames.
       if (stillVideo) {
-        gsap.to(stillVideo, {
-          opacity: 0,
-          ease: 'power1.inOut',
+        const handoff = gsap.timeline({
           scrollTrigger: {
             trigger: heroRef.current,
-            // Start fading only after a small scroll buffer (200px desktop)
-            // so the canvas is definitely rendered before the video disappears
-            start: isMobile ? 'top top' : '+=100',
-            end: isMobile ? '+=400' : '+=600',
-            scrub: 0.6, // smooth but snappy — removes the "lag" gap
-          }
+            start: 'top top',
+            end: isMobile ? '+=360' : '+=240',
+            scrub: isMobile ? 0.8 : 0.2,
+          },
         });
+
+        // Crossfade both layers together so the sequence never appears under a
+        // fully opaque video and the handoff remains continuous while scrolling.
+        handoff
+          .to(stillVideo, { opacity: 0, ease: 'none' }, 0)
+          .to(canvas, { opacity: 1, ease: 'none' }, 0);
       }
 
       // 2. Scrub the image sequence.
-      //    Use a lower scrub value for desktop so the first frames
-      //    track quickly and don't lag behind the video fade.
+      //    Use a snappy scrub value so frames track scroll speed immediately
       const seq = gsap.to(airpods, {
         frame: frameCount - 1,
         snap: 'frame',
         ease: 'none',
         scrollTrigger: {
           trigger: heroRef.current,
-          start: 'top top',
+          start: isMobile ? 'top top' : 'top+=240 top',
           end: 'bottom bottom',
-          scrub: isMobile ? 1 : 0.8, // tighter scrub on desktop for crisper transition
+          scrub: isMobile ? 1 : 0.4, // snappier scrub response on desktop
         },
         onUpdate: () => {
           const currentImg = images[airpods.frame];
@@ -167,8 +166,8 @@ export default function Hero({ onProgress }: HeroProps) {
   }, [isMobile]);
 
   return (
-    // On mobile, reduce scroll range significantly so the sequence finishes faster.
-    <div ref={heroRef} className={`relative ${isMobile ? 'h-[200vh]' : 'h-[700vh]'}`}>
+    // Fast scroll response on desktop (300vh instead of 700vh) and mobile (200vh)
+    <div ref={heroRef} className={`relative ${isMobile ? 'h-[200vh]' : 'h-[300vh]'}`}>
       {/* Sticky inner — stays pinned while scrolling through the hero sequence */}
       <section
         id="hero"
@@ -180,7 +179,10 @@ export default function Hero({ onProgress }: HeroProps) {
           <canvas
             ref={canvasRef}
             className={`absolute inset-x-0 ${isMobile ? 'top-[72px] bottom-0 w-full h-[calc(100%-72px)]' : 'inset-0 w-full h-full'}`}
-            style={!isMobile ? { objectFit: 'cover', width: '100%', height: '100%' } : undefined}
+            style={{
+              opacity: 0,
+              ...(isMobile ? {} : { objectFit: 'cover', width: '100%', height: '100%' }),
+            }}
           />
 
           {/* Initial ambient video — looping at top, fades out smoothly on scroll.
