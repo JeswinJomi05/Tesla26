@@ -5,5 +5,5 @@ import './styles/globals.css';
 
 export default function App() {
   // Temporarily showing ComingSoon
-  return <ComingSoon />;
+  return <Home />;
 }
