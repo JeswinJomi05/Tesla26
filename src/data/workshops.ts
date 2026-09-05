@@ -24,5 +24,17 @@ export const workshopsData: WorkshopItem[] = [
     instructor: 'TBA',
     image: '/images/Workshop/Dance_wsp.webp',
     registrationLink: 'https://forms.gle/GJkSybUHGkscjTFy5'
+  },
+  {
+    id: 'ws-photoshop',
+    title: 'PHOTOSHOP WORKSHOP',
+    subtitle: 'MASTER THE LENS',
+    desc: 'Dive into the world of digital design and photo editing. Learn professional techniques in Adobe Photoshop from scratch.',
+    badge: 'NEW',
+    iconName: 'Cpu',
+    date: 'TBA',
+    instructor: 'TBA',
+    image: '/images/Workshop/Photoshope.jpeg',
+    registrationLink: 'https://forms.gle/3ZqcPecALY5Lkj2A6'
   }
 ];

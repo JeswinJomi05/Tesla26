@@ -105,21 +105,27 @@ export default function Hero({ onProgress }: HeroProps) {
     }
 
     const ctx = gsap.context(() => {
-      // 1. Fade out the still video smoothly in the first part of the scroll
+      // 1. Fade out the still video smoothly — but only start AFTER
+      //    the canvas has had time to render frame 0 underneath.
+      //    On desktop, delay the fade start so there's zero visible gap.
       if (stillVideo) {
         gsap.to(stillVideo, {
           opacity: 0,
-          ease: 'none',
+          ease: 'power1.inOut',
           scrollTrigger: {
             trigger: heroRef.current,
-            start: 'top top',
-            end: isMobile ? '+=400' : '+=800', // fade out over the first part of scroll
-            scrub: true,
+            // Start fading only after a small scroll buffer (200px desktop)
+            // so the canvas is definitely rendered before the video disappears
+            start: isMobile ? 'top top' : '+=100',
+            end: isMobile ? '+=400' : '+=600',
+            scrub: 0.6, // smooth but snappy — removes the "lag" gap
           }
         });
       }
 
-      // 2. Scrub the image sequence using GSAP's optimized ScrollTrigger with 1.5s smoothing
+      // 2. Scrub the image sequence.
+      //    Use a lower scrub value for desktop so the first frames
+      //    track quickly and don't lag behind the video fade.
       const seq = gsap.to(airpods, {
         frame: frameCount - 1,
         snap: 'frame',
@@ -128,10 +134,9 @@ export default function Hero({ onProgress }: HeroProps) {
           trigger: heroRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: isMobile ? 1 : 1.5, // slightly faster scrub response on mobile
+          scrub: isMobile ? 1 : 0.8, // tighter scrub on desktop for crisper transition
         },
         onUpdate: () => {
-          // Render current frame to canvas if it has finished loading
           const currentImg = images[airpods.frame];
           if (currentImg && currentImg.complete && currentImg.naturalWidth > 0) {
             requestAnimationFrame(() => {
@@ -174,10 +179,12 @@ export default function Hero({ onProgress }: HeroProps) {
           {/* Main scrub canvas sequence — synchronized with scroll position */}
           <canvas
             ref={canvasRef}
-            className={`absolute inset-x-0 ${isMobile ? 'top-[72px] bottom-0 w-full h-[calc(100%-72px)]' : 'inset-0 w-full h-full'} object-cover`}
+            className={`absolute inset-x-0 ${isMobile ? 'top-[72px] bottom-0 w-full h-[calc(100%-72px)]' : 'inset-0 w-full h-full'}`}
+            style={!isMobile ? { objectFit: 'cover', width: '100%', height: '100%' } : undefined}
           />
 
-          {/* Initial ambient video — looping at top, fades out smoothly on scroll */}
+          {/* Initial ambient video — looping at top, fades out smoothly on scroll.
+               z-10 so it sits above the canvas; GSAP fades it to 0 once canvas is ready. */}
           <video
             ref={stillVideoRef}
             src={isMobile ? "/videos/bg1mob.mp4" : "/videos/Bg1_A.mp4"}
@@ -186,7 +193,8 @@ export default function Hero({ onProgress }: HeroProps) {
             loop
             playsInline
             preload="auto"
-            className={`absolute inset-x-0 ${isMobile ? 'top-[72px] bottom-0 w-full h-[calc(100%-72px)]' : 'inset-0 w-full h-full'} object-cover transition-opacity duration-100`}
+            className={`absolute inset-x-0 ${isMobile ? 'top-[72px] bottom-0 w-full h-[calc(100%-72px)]' : 'inset-0 w-full h-full'} object-cover`}
+            style={{ zIndex: 1 }}
           />
         </div>
 
