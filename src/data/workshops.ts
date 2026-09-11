@@ -4,6 +4,7 @@ export interface WorkshopItem {
   subtitle: string;
   desc: string;
   badge?: string;
+  isCompleted?: boolean;
   iconName: 'Cpu' | 'Zap' | 'Radio';
   date: string;
   instructor: string;
@@ -30,11 +31,11 @@ export const workshopsData: WorkshopItem[] = [
     title: 'PHOTOSHOP WORKSHOP',
     subtitle: 'MASTER THE LENS',
     desc: 'Dive into the world of digital design and photo editing. Learn professional techniques in Adobe Photoshop from scratch.',
-    badge: 'NEW',
+    badge: 'COMPLETED',
+    isCompleted: true,
     iconName: 'Cpu',
     date: 'TBA',
     instructor: 'TBA',
-    image: '/images/Workshop/Photoshope.jpeg',
-    registrationLink: 'https://forms.gle/3ZqcPecALY5Lkj2A6'
+    image: '/images/Workshop/Photoshope.jpeg'
   }
 ];

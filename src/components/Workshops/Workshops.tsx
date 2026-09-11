@@ -142,6 +142,7 @@ export default function Workshops({ onSelectCard }: WorkshopsProps) {
                 title={ws.title}
                 subtitle={ws.subtitle}
                 badge={ws.badge || 'NEW'}
+                isCompleted={ws.isCompleted}
                 image={ws.image}
                 tag={ws.date}
                 actionText="ENROLL NOW →"

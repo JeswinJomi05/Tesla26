@@ -20,13 +20,12 @@ export const competitionsData: CompetitionItem[] = [
     subtitle: 'STRATEGIC BOARD COMBAT',
     desc: 'Test your tactical brilliance and outsmart your opponents on the 64 squares.',
     prize: 'EXCITING PRIZES',
-    badge: 'NEW',
-    isCompleted: false,
+    badge: 'COMPLETED',
+    isCompleted: true,
     iconName: 'Trophy',
     teamSize: 'Individual',
     venue: 'To be announced',
-    image: '/images/competition/Chess.jpeg',
-    registrationLink: 'https://docs.google.com/forms/d/e/1FAIpQLScIcXdAhginTrS_Zo8jnwJYsowx7hyUnmOVHxGosAepTSTXTQ/viewform?usp=publish-editor'
+    image: '/images/competition/Chess.jpeg'
   },
   {
     id: 'comp-1',

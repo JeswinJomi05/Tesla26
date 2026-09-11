@@ -1,6 +1,7 @@
 import arcadiaImg from '../assets/arcadia.jpg';
 import autoExpoImg from '../assets/auto-expo.jpg';
 import proshowImg from '../assets/proshow.jpg';
+import teslaCoilImg from '../assets/tesla-coil.jpg';
 
 export interface HighlightItem {
   id: string;
@@ -13,6 +14,15 @@ export interface HighlightItem {
 }
 
 export const highlightsData: HighlightItem[] = [
+  {
+    id: 'tesla25',
+    title: 'TESLA 25',
+    subtitle: 'THE AFTER MOVIE',
+    image: teslaCoilImg,
+    video: '/videos/tesla25.mp4',
+    desc: 'Relive the electrifying moments of TESLA 2025. The ultimate tech and cultural extravaganza.',
+    category: 'AFTER MOVIE'
+  },
   {
     id: 'proshow',
     title: 'TESLA 24',

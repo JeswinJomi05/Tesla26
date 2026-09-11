@@ -164,7 +164,7 @@ export default function Highlights() {
         {/* =========================================================
             3-COLUMN VIDEO PREVIEW CARDS GRID
             ========================================================= */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7 lg:gap-9 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 lg:gap-9 items-start">
           {highlightsData.map((item, index) => (
             <motion.div
               key={item.id}
