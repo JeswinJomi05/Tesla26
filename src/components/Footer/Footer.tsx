@@ -123,7 +123,7 @@ export default function Footer() {
                       <a
                         href={link.href}
                         target={link.external ? '_blank' : undefined}
-                        rel={link.external ? 'noreferrer' : undefined}
+                        rel={link.external ? 'noopener noreferrer' : undefined}
                         className="group flex items-center gap-3 font-mono-tech text-xs sm:text-sm uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-all px-2 py-1 -ml-2 rounded"
                       >
                         <span className="w-0 h-[1px] bg-white group-hover:w-3 transition-all duration-300" />
@@ -176,17 +176,17 @@ export default function Footer() {
             <div className="flex flex-col items-center sm:items-start gap-y-1 text-slate-400 tracking-[0.15em]">
               <span>
                 DESIGNED & CURATED BY{' '}
-                <a href="https://www.instagram.com/_rohan.kishore/?hl=en" target="_blank" rel="noreferrer" className="text-white font-semibold tracking-[0.18em] hover:text-slate-300 hover:underline hover:underline-offset-2 transition-all">
+                <a href="https://www.instagram.com/_rohan.kishore/?hl=en" target="_blank" rel="noopener noreferrer" className="text-white font-semibold tracking-[0.18em] hover:text-slate-300 hover:underline hover:underline-offset-2 transition-all">
                   ROHAN KISHORE
                 </a>
               </span>
               <span>
                 DEVELOPED BY{' '}
-                <a href="https://www.instagram.com/jeswin_jomi/?hl=en" target="_blank" rel="noreferrer" className="text-white font-semibold tracking-[0.18em] hover:text-slate-300 hover:underline hover:underline-offset-2 transition-all">
+                <a href="https://www.instagram.com/jeswin_jomi/?hl=en" target="_blank" rel="noopener noreferrer" className="text-white font-semibold tracking-[0.18em] hover:text-slate-300 hover:underline hover:underline-offset-2 transition-all">
                   JESWIN
                 </a>
                 <span className="text-white font-semibold tracking-[0.18em]"> & </span>
-                <a href="https://www.instagram.com/abhi_sheiik_/?hl=en" target="_blank" rel="noreferrer" className="text-white font-semibold tracking-[0.18em] hover:text-slate-300 hover:underline hover:underline-offset-2 transition-all">
+                <a href="https://www.instagram.com/abhi_sheiik_/?hl=en" target="_blank" rel="noopener noreferrer" className="text-white font-semibold tracking-[0.18em] hover:text-slate-300 hover:underline hover:underline-offset-2 transition-all">
                   ABHISHEK
                 </a>
               </span>
@@ -199,7 +199,7 @@ export default function Footer() {
             <a 
               href="https://share.google/yCabwr6SmBZzGvgX1" 
               target="_blank" 
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-white/40 hover:text-white/80 transition-colors flex flex-col leading-tight hover:underline hover:underline-offset-2"
             >
               <span>09.5469° N</span>
@@ -207,6 +207,18 @@ export default function Footer() {
             </a>
           </div>
         </div>
+      </div>
+
+      {/* Discreet bottom-left corner hyperlink for '.' */}
+      <div className="absolute bottom-1 left-2 sm:bottom-1.5 sm:left-3 z-30 leading-none">
+        <a
+          href="https://asc.sficet.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-slate-600 hover:text-slate-300 transition-colors text-xs font-mono select-none"
+        >
+          .
+        </a>
       </div>
     </footer>
   );
