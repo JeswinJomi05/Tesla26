@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface MerchandiseProps {
-  onOpenBuy: () => void;
+  onOpenBuy?: () => void;
 }
 
 export default function Merchandise({ onOpenBuy }: MerchandiseProps) {
